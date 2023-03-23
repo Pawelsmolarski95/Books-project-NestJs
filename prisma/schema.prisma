@@ -12,7 +12,7 @@ datasource db {
 
 model Author {
   id String @id @default(uuid())
-  name String 
+  name String @unique
   country String
   books Book[]
 
@@ -20,12 +20,12 @@ model Author {
 
 model Book {
   id String @id @default(uuid())
-  title String @unique
+  title String
   rating Int  
   price Int
   authorId String
   author Author? @relation(fields: [authorId], references: [id], onDelete: Cascade )
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
 }
