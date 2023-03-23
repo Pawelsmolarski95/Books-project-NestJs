@@ -9,3 +9,23 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Author {
+  id String @id @default(uuid())
+  name String 
+  country String
+  books Book[]
+
+}
+
+model Book {
+  id String @id @default(uuid())
+  title String @unique
+  rating Int  
+  price Int
+  authorId String
+  author Author? @relation(fields: [authorId], references: [id], onDelete: Cascade )
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+}
