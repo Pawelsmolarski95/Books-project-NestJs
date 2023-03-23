@@ -1,4 +1,4 @@
-import { PrismaService } from './../shared/services/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { ConflictException, Injectable } from '@nestjs/common';
 import { Author } from '@prisma/client';
 

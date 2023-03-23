@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Password, User } from '@prisma/client';
-import { PrismaService } from 'src/shared/services/prisma.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
   getAll(): Promise<User[]> {
-    return this.prismaService.user.findMany();
+    return this.prismaService.user.findMany({
+        include: { password: true },
+    });
   }
 
   getUserById(id: User['id']): Promise<User | null> {
