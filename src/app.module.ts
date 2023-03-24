@@ -1,3 +1,4 @@
+import { PassportModule } from '@nestjs/passport';
 import {
   Module,
   NestModule,
@@ -14,7 +15,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [AuthorsModule, BooksModule, UsersModule, PrismaModule, AuthModule,],
+  imports: [AuthorsModule, BooksModule, UsersModule, PrismaModule, AuthModule, PassportModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -18,9 +18,11 @@ export class UsersService {
     });
   }
 
-  getUserByEmail(email: User['email']): Promise<User | null> {
+  getUserByEmail(email: User['email'],
+  ): Promise<(User & { password: Password }) | null> {
     return this.prismaService.user.findUnique({
       where: { email },
+      include: { password: true }
     });
   }
 
