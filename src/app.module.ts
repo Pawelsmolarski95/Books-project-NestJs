@@ -26,8 +26,8 @@ import configuration from './config/configuration';
     PassportModule,
     ConfigModule.forRoot({
       load: [configuration],
-      isGlobal: true,
-    }),
+      isGlobal: true
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
