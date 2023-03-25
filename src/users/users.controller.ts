@@ -37,13 +37,12 @@ export class UsersController {
       throw new NotFoundException('User with this email not exist');
     return userByEmail;
   }
-
-  @Delete('/:id')
+  @Delete(':id')
   @UseGuards(AdminAuthGuard)
   @UseGuards(JwtAuthGuard)
-  async delete(@Param('id', new ParseUUIDPipe()) id: string) {
-    const deleteUser = await this.userService.getUserById(id);
-    if (!deleteUser) throw new NotFoundException('User not exist');
+  public async delete(@Param('id', new ParseUUIDPipe()) id: string) {
+    if (!(await this.userService.getUserById(id)))
+      throw new NotFoundException('User not found');
     await this.userService.deleteUser(id);
     return { success: true };
   }
