@@ -20,6 +20,7 @@ export class BooksController {
   constructor(private booksService: BooksService) {}
 
   @Get('/')
+  @UseGuards(JwtAuthGuard)
   getBooks() {
     return this.booksService.getAllBooks();
   }

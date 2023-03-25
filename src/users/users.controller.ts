@@ -1,12 +1,16 @@
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { AdminAuthGuard } from './../auth/admin-auth.guard';
 import { CreateUserDTO } from './dto/create-user.dto';
 import {
-    Body,
+  Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
   ParseUUIDPipe,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -34,4 +38,13 @@ export class UsersController {
     return userByEmail;
   }
 
+  @Delete('/:id')
+  @UseGuards(AdminAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  async delete(@Param('id', new ParseUUIDPipe()) id: string) {
+    const deleteUser = await this.userService.getUserById(id);
+    if (!deleteUser) throw new NotFoundException('User not exist');
+    await this.userService.deleteUser(id);
+    return { success: true };
+  }
 }

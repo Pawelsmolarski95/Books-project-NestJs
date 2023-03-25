@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    private usersService: UsersService,
     private jwtService: JwtService,
     private configService: ConfigService
   ) {}
@@ -18,10 +18,10 @@ export class AuthService {
     const userData = {
       email: registrationData.email,
     };
-    return this.userService.createNewUser(userData, hashedPassword);
+    return this.usersService.createNewUser(userData, hashedPassword);
   }
   public async validateUser(email: string, password: string) {
-    const user = await this.userService.getUserByEmail(email);
+    const user = await this.usersService.getUserByEmail(email);
     if (
       user &&
       (await bcrypt.compare(password, user.password.hashedPassword))
@@ -35,8 +35,8 @@ export class AuthService {
     const payload = { email: user.email, sub: user.id };
   
     const accessToken = this.jwtService.sign(payload, {
-      secret: this.configService.get('jwt.secret'),
-      expiresIn: this.configService.get('jwt.expiresIn'),
+      secret: 'xrwe4543534',
+      expiresIn: '12h',
     });
   
     return {

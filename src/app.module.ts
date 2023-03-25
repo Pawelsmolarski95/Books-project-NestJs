@@ -17,7 +17,18 @@ import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 
 @Module({
-  imports: [AuthorsModule, BooksModule, UsersModule, PrismaModule, AuthModule, PassportModule, ConfigModule.forRoot({ isGlobal: true })],
+  imports: [
+    AuthorsModule,
+    BooksModule,
+    UsersModule,
+    PrismaModule,
+    AuthModule,
+    PassportModule,
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
@@ -27,9 +38,5 @@ export class AppModule implements NestModule {
       path: '*',
       method: RequestMethod.ALL,
     });
-    ConfigModule.forRoot({
-      load: [configuration],
-      isGlobal: true
-    })
   }
 }
