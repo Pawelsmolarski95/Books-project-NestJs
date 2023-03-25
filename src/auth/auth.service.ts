@@ -10,7 +10,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {}
 
   async register(registrationData: RegisterDTO) {
@@ -35,8 +35,8 @@ export class AuthService {
     const payload = { email: user.email, sub: user.id };
   
     const accessToken = this.jwtService.sign(payload, {
-      secret: 'xrwe4543534',
-      expiresIn: '12h',
+      secret: this.configService.get('jwt.secret'),
+      expiresIn: this.configService.get('jwt.expiresIn'),
     });
   
     return {
