@@ -18,7 +18,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @Controller('authors')
 export class AuthorsController {
   constructor(private authorsService: AuthorsService) {}
-
+  @UseGuards(JwtAuthGuard)
   @Get('/')
   getAuthors() {
     return this.authorsService.getAll();
