@@ -20,7 +20,6 @@ export class AuthorsController {
   constructor(private authorsService: AuthorsService) {}
 
   @Get('/')
-  @UseGuards(JwtAuthGuard)
   getAuthors() {
     return this.authorsService.getAll();
   }
